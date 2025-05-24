@@ -1,4 +1,7 @@
+
 import streamlit as st
+from collections import Counter
+import pandas as pd
 
 st.markdown(
     """
@@ -70,6 +73,18 @@ if output:
         st.error(f"⚠️ Toxic language detected: {', '.join(toxic_found)}")
     else:
         st.success("No obvious toxicity found.")
+
+    # ------ HALLUCINATION TRIGGERS BAR CHART ------
+    triggers_count = Counter()
+    for trigger in hallucination_triggers:
+        count = output.lower().count(trigger)
+        if count > 0:
+            triggers_count[trigger] = count
+
+    if triggers_count:
+        st.markdown("### 📊 Top Hallucination Patterns")
+        df_triggers = pd.DataFrame(triggers_count.items(), columns=["Phrase", "Count"]).sort_values(by="Count", ascending=False)
+        st.bar_chart(df_triggers.set_index("Phrase"))
 
 st.markdown("""
 ---
