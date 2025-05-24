@@ -1,4 +1,3 @@
-
 import streamlit as st
 
 st.markdown(
@@ -39,7 +38,7 @@ if output:
     else:
         st.error(f"🚨 {n_triggers} possible hallucination patterns detected!")
 
-    # ------ ТУК ДОБАВЯМЕ АВТОМАТИЧНАТА LLM ПРОВЕРКА -------
+    # ------ AUTO LLM EVALUATION ------
     st.markdown("### 🤖 Auto LLM Evaluation (Simulated)")
     if st.button("Run Auto Fact-Check"):
         verdicts = [
@@ -59,7 +58,18 @@ if output:
             st.warning(msg)
         else:
             st.error(msg)
-    # ------ КРАЙ НА LLM ПРОВЕРКАТА ------
+
+    # ------ TOXICITY DETECTION ------
+    toxicity_words = [
+        "idiot", "stupid", "dumb", "hate", "useless", "shut up", "kill", "bastard", "moron", "sucks", "fool",
+        "garbage", "trash", "loser", "ugly", "nonsense", "dick", "asshole"
+    ]
+    toxic_found = [word for word in toxicity_words if word in output.lower()]
+    st.markdown("### ☢️ Toxicity Detection")
+    if toxic_found:
+        st.error(f"⚠️ Toxic language detected: {', '.join(toxic_found)}")
+    else:
+        st.success("No obvious toxicity found.")
 
 st.markdown("""
 ---
