@@ -3,7 +3,6 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://share.streamlit.io/epaunova/llm-hallucination-detector/main/hallucination_app.py)
 
 
-  # 🤖 LLM Hallucination & Robustness Detector
 
 Welcome! This is a lightweight yet powerful **Streamlit** app designed to help you detect when large language models (LLMs) like GPT, Claude, or Mistral start “hallucinating” — that is, generating uncertain or false information.
 
