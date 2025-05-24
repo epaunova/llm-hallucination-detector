@@ -2,40 +2,61 @@
 
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://share.streamlit.io/epaunova/llm-hallucination-detector/main/hallucination_app.py)
 
-## Описание
 
-Това е интерактивно Streamlit приложение за оценка на изходите от големи езикови модели (LLMs).  
-Поддържа както единичен анализ на един output, така и batch режим за множество outputs наведнъж.
+  # 🤖 LLM Hallucination & Robustness Detector
 
-### Основни функции:
-
-- **Откриване и визуализация на потенциални hallucination patterns** чрез подчертани trigger фрази  
-- **Ръчна оценка на factuality** чрез плъзгач (slider)  
-- **Автоматична (симулирана) LLM оценка** с бутон за бърза диагностика  
-- **Токсичност** – проверка за токсични и обидни думи  
-- **Бар графика с честота на hallucination фразите**  
-- **Batch режим** за обработка и анализ на множество outputs наведнъж  
-- Статистика и разпределение на тригерите и токсичността в batch  
+Welcome! This is a lightweight yet powerful **Streamlit** app designed to help you detect when large language models (LLMs) like GPT, Claude, or Mistral start “hallucinating” — that is, generating uncertain or false information.
 
 ---
 
-## Как да използваш
+## What’s it all about?
 
-1. **Single mode (по подразбиране)**  
-   - Постави един output в полето "LLM Output".  
-   - Виж подчертани hallucination triggers, направи ръчна оценка и пусни авто проверка.  
-   - Виж токсичността и бар графика с тригерите.  
+Working with LLMs means dealing with outputs that aren’t always reliable. This app helps you:
 
-2. **Batch mode**  
-   - Отметни "Batch mode" чекбокса.  
-   - Постави няколко output-а, разделени с три тирета (`---`).  
-   - Прави ръчни оценки за всеки output отделно.  
-   - Виж обща статистика, броя токсични и hallucination outputs.  
-   - Графика с честотата на всички hallucination тригери в batch.  
+- Highlight common phrases that signal hallucinations  
+- Manually rate the factual accuracy of any output  
+- Run an automatic (simulated) LLM check for quick diagnostics  
+- Detect toxic or offensive language to keep things clean  
+- Visualize hallucination triggers frequency in an intuitive bar chart  
+- Analyze multiple outputs at once in batch mode, with aggregated stats and distributions  
 
 ---
 
-## Инсталация
+## How to use
+
+There are two modes:
+
+### 1. Single output mode
+
+Paste a single LLM output and instantly see all analyses — perfect for quick checks.
+
+### 2. Batch mode
+
+Paste multiple outputs separated by `---`. Get batch-level summaries: how many outputs have hallucinations, toxicity, average factuality, and trigger distributions.
+
+---
+
+## Why use this app?
+
+Because no LLM is perfect. As a product manager, researcher, or developer, you need to know when your model is trustworthy and when it’s not. This is your handy sidekick for spotting hallucinations and toxicity before they cause trouble.
+
+---
+
+## Installation
 
 ```bash
 pip install streamlit pandas
+Running locally
+bash
+Copy
+streamlit run hallucination_app.py
+Sample text to test hallucination detection
+pgsql
+Copy
+As far as I know, there is no evidence for this. Some sources claim it is fictional.
+Author
+Eva Paunova — AI Enthusiast & Product Architect
+GitHub | LinkedIn
+
+License
+MIT License
