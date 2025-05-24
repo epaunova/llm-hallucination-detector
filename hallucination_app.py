@@ -1,11 +1,40 @@
-
 import streamlit as st
 from collections import Counter
 import pandas as pd
 
+# -- CUSTOM STYLE --
 st.markdown(
     """
-    <h1 style='color:#c44536;'>🤖 LLM Hallucination & Robustness Detector</h1>
+    <style>
+    .st-emotion-cache-18ni7ap { /* Main background */
+        background: #fcf6f0;
+    }
+    .st-emotion-cache-6qob1r { /* Sidebar */
+        background-color: #ffe5dc !important;
+    }
+    .st-emotion-cache-1v0mbdj h1 { /* H1 Header */
+        color: #c44536 !important;
+    }
+    .eva-logo {
+        display: flex; align-items: center; gap: 14px; margin-bottom: 0.2em;
+    }
+    .eva-logo-img {
+        width: 40px; height: 40px; border-radius: 50%; border: 2px solid #c44536;
+        object-fit: cover; background: #fff;
+    }
+    .eva-title {
+        font-size: 2.0em; color: #c44536; font-weight: bold; letter-spacing: 1px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# -- HEADER с "лого" (инициал/иконка или сложи URL към твой PNG/JPG) --
+st.markdown(
+    """
+    <div class="eva-logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/3940/3940417.png" class="eva-logo-img">
+        <span class="eva-title">LLM Hallucination & Robustness Detector</span>
+    </div>
     <p>Paste your LLM output below. The app will highlight likely hallucination patterns and let you rate factuality.</p>
     """, unsafe_allow_html=True)
 
