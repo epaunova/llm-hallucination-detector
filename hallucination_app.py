@@ -22,6 +22,9 @@ toxicity_words = [
 
 batch_mode = st.checkbox("Batch mode (analyze multiple outputs)", value=False)
 
+# Винаги показваме полето за сингъл output
+single_output = st.text_area("LLM Output", height=180)
+
 if batch_mode:
     st.info("Paste multiple LLM outputs, separated by three dashes (---).")
     multi_outputs = st.text_area("LLM Outputs (batch)", height=240)
@@ -64,14 +67,13 @@ if batch_mode:
             st.bar_chart(df_tr.set_index("Phrase"))
 
 else:
-    output = st.text_area("LLM Output", height=180)
+    # Анализираме сингъл output само ако има текст
+    if single_output.strip():
+        highlighted = single_output
+        for trigger in hallucination_triggers:
+            if trigger in single_output.lower():
+                highlighted = highlighted.replace(trigger, f"<mark style='background-color: #ffc2c2'>{trigger}</mark>")
 
-    highlighted = output
-    for trigger in hallucination_triggers:
-        if trigger in output.lower():
-            highlighted = highlighted.replace(trigger, f"<mark style='background-color: #ffc2c2'>{trigger}</mark>")
-
-    if output:
         st.markdown("### 🔎 Highlighted Output")
         st.markdown(highlighted, unsafe_allow_html=True)
 
@@ -79,7 +81,7 @@ else:
         fact_score = st.slider("How factual is this output? (0 = totally hallucinated, 1 = fully factual)", 0.0, 1.0, 0.5, 0.01)
         st.info(f"Manual factuality score: **{fact_score:.2f}**")
 
-        n_triggers = sum(trigger in output.lower() for trigger in hallucination_triggers)
+        n_triggers = sum(trigger in single_output.lower() for trigger in hallucination_triggers)
         st.markdown(f"**Detected {n_triggers} possible hallucination phrase(s).**")
         if n_triggers == 0:
             st.success("✅ No obvious hallucination patterns found. (Not a guarantee, but a good sign!)")
@@ -108,16 +110,16 @@ else:
             else:
                 st.error(msg)
 
-        toxicity_found = [word for word in toxicity_words if word in output.lower()]
+        toxic_found = [word for word in toxicity_words if word in single_output.lower()]
         st.markdown("### ☢️ Toxicity Detection")
-        if toxicity_found:
-            st.error(f"⚠️ Toxic language detected: {', '.join(toxicity_found)}")
+        if toxic_found:
+            st.error(f"⚠️ Toxic language detected: {', '.join(toxic_found)}")
         else:
             st.success("No obvious toxicity found.")
 
         triggers_count = Counter()
         for trigger in hallucination_triggers:
-            count = output.lower().count(trigger)
+            count = single_output.lower().count(trigger)
             if count > 0:
                 triggers_count[trigger] = count
 
