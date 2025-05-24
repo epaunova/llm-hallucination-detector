@@ -38,6 +38,28 @@ if output:
     else:
         st.error(f"🚨 {n_triggers} possible hallucination patterns detected!")
 
+    # ------ ТУК ДОБАВЯМЕ АВТОМАТИЧНАТА LLM ПРОВЕРКА -------
+    st.markdown("### 🤖 Auto LLM Evaluation (Simulated)")
+    if st.button("Run Auto Fact-Check"):
+        verdicts = [
+            ("LLM: This output is likely factual.", "success"),
+            ("LLM: Possible hallucination detected.", "warning"),
+            ("LLM: Hallucination pattern detected. Needs human review.", "error")
+        ]
+        if n_triggers == 0:
+            msg, style = verdicts[0]
+        elif n_triggers == 1:
+            msg, style = verdicts[1]
+        else:
+            msg, style = verdicts[2]
+        if style == "success":
+            st.success(msg)
+        elif style == "warning":
+            st.warning(msg)
+        else:
+            st.error(msg)
+    # ------ КРАЙ НА LLM ПРОВЕРКАТА ------
+
 st.markdown("""
 ---
 <small>
